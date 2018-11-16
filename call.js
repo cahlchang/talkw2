@@ -58,11 +58,15 @@ function record() {
         for (var i = event.resultIndex; i < results.length; i++) {
             if (results[i].isFinal) {
                 // document.getElementById('result_text').innerHTML = results[i][0].transcript;
-		$("#result_text").val(results[i][0].transcript);
+		var text = results[i][0].transcript;
+		$("#result_text").val(text);
+		call_test(text);
                 record();
             }
             else {
-                document.getElementById('result_text').innerHTML = "[途中経過] " + results[i][0].transcript;
+		var text = "[途中経過] " + results[i][0].transcript;
+		$("#result_text").val(text);
+
                 flag_speech = 1;
             }
         }	
