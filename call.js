@@ -1,21 +1,20 @@
 $(function () {
     $('.slack-submit').on('click', function () {
-	var url = 'https://slack.com/api/chat.postMessage';
-	var token = $('#webhook').val();
+	var url = $('#webhook').val();
+
         var data = {
-            token: token,
             channel: '#general',
             username: 'oreno-bot',
             text: 'Hello Slack!'
         };
 
         $.ajax({
-            type: 'GET',
             url: url,
+            type: 'post',
             data: data,
-            success: function (data) {
+	    success: function (data) {
                 alert( 'Can I post to Slack? :' + token + data.ok );
-            }
-        });
+            }});
+
     });
 });
