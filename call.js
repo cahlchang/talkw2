@@ -14,7 +14,7 @@ $(function () {
             url: url,
             data: data,
             success: function (data) {
-                alert( 'Can I post to Slack? :' + data.ok );
+                alert( 'Can I post to Slack? :' + token + data.ok );
             }
         });
     });
