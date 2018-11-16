@@ -31,7 +31,7 @@ $(function () {
 
 $(function () {
     $('.slack-submit').on('click', function () {
-	var url = $('#webhook').val()
+	var url = $('#webhook').val();
 
 	$.ajax({
 	    data: 'payload=' + JSON.stringify({
@@ -48,6 +48,6 @@ $(function () {
             error: function(){
                 console.log('失敗');
             }
-	})
+	});
     });
 });
