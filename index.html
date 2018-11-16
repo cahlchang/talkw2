@@ -1,41 +1,42 @@
 <html>
-<head>
-  <meta charset="UTF-8" />
-  <title>Web Speech API</title>
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script>
-window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
-var recognition = new webkitSpeechRecognition();
-recognition.lang = 'ja';
+  <head>
+    <meta charset="UTF-8" />
+    <title>Web Speech API</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="call.js"></script>
+    <script>
+      window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+      var recognition = new webkitSpeechRecognition();
+      recognition.lang = 'ja';
 
-// 録音終了時トリガー
-recognition.addEventListener('result', function(event){
-    var text = event.results.item(0).item(0).transcript;
-    $("#result_text").val(text);
-}, false);
+      // 録音終了時トリガー
+      recognition.addEventListener('result', function(event){
+      var text = event.results.item(0).item(0).transcript;
+      $("#result_text").val(text);
+      }, false);
 
-// 録音開始
-function record()
-{
-    recognition.start();
-}
-</script>
-</head>
+      // 録音開始
+      function record()
+      {
+      recognition.start();
+      }
+    </script>
+  </head>
 
-<body>
+  <body>
 
-wehbook url <br />
+    wehbook url <br />
 
-<textarea id="webhook" cols="100" rows="3">
-<br />
-</textarea>
-<br />
-<textarea id="result_text" cols="100" rows="10">
-</textarea>
+    <textarea id="webhook" cols="100" rows="3">
+    </textarea>
+    <br />
+    <textarea id="result_text" cols="100" rows="10">
+    </textarea>
 
-
-
-<br />
-<input type="button" onClick="record()" value="録音開始" />
-</body>
+    
+    <br />
+    <input type="button" onClick="record()" value="録音開始" /><br />
+    <input type="button" onClick="slack-submit()" value="test" /><br />
+    <a href="#" class="slack-submit">Post to Slack!</a><br />
+  </body>
 </html>
