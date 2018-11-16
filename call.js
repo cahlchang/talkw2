@@ -3,7 +3,7 @@ $(function () {
 	var url = $('#webhook').val();
 
         var data = {
-            channel: '#general',
+            channel: '#bot_test',
             username: 'oreno-bot',
             text: 'Hello Slack!'
         };
