@@ -13,6 +13,7 @@ function call_test(text) {
 	}),
 	type: 'POST',
 	url: url,
+	contentType: 'application/json',
 	success: function() {
             console.log('成功');
         },
