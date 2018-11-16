@@ -13,9 +13,9 @@ function call_test(text) {
 	}),
 	dataType: 'json',
 	processData: false,
-	content_type: 'application/json',
 	type: 'POST',
 	url: url,
+	contentType: 'application/json',
 	success: function() {
             console.log('成功');
         },
