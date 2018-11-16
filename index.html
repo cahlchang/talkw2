@@ -1,19 +1,32 @@
-<!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Test</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/marx/2.0.4/marx.css">
+  <meta charset="UTF-8" />
+  <title>Web Speech API</title>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+var recognition = new webkitSpeechRecognition();
+recognition.lang = 'ja';
+
+// 録音終了時トリガー
+recognition.addEventListener('result', function(event){
+    var text = event.results.item(0).item(0).transcript;
+    $("#result_text").val(text);
+}, false);
+
+// 録音開始
+function record()
+{
+    recognition.start();
+}
+</script>
 </head>
 
 <body>
-<main>
-  <h1>init talk</h1>
 
-</main>
-
-<script>
-console.log('GitHub Pages Sample');
-</script>
+<textarea id="result_text" cols="100" rows="10">
+</textarea>
+<br />
+<input type="button" onClick="record()" value="録音開始" />
 </body>
 </html>
