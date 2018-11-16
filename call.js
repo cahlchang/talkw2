@@ -12,6 +12,8 @@ function call_test(text) {
 	}),
 	type: 'POST',
 	url: url,
+    	dataType: 'json',
+    	processData: false,
 	success: function() {
             console.log('成功');
         },
