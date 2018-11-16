@@ -22,10 +22,9 @@ $(function () {
 	}, false);
 
 	// 録音開始
-	function record() {
-	    console.log('on record');
-	    recognition.start();
-	}
+	console.log('on record');
+	recognition.start();
+	
     });
 });
 
