@@ -8,7 +8,7 @@ function call_test(text) {
     $.ajax({
 	data: 'payload=' + JSON.stringify({
 	    // text: text,
-	    content: msg,
+	    content: 'aaaaaa',
 	    username: 'bot'
 	}),
 	content: 'aa',
