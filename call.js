@@ -3,13 +3,12 @@ var flag_push_enable = 0;
 
 function call_test(text) {
     console.log('test call');
-    var msg = '[msg]' + text;
+    var msg = text;
     var url = $('#webhook').val();
     $.ajax({
 	data: 'payload=' + JSON.stringify({
-	    // text: text,
-	    content: 'aaaaaa',
-	    avatar_url: 'https://cdn.discordapp.com/avatars/411256446638882837/9a12fc7810795ded801fdb0401db0be6.png',
+	    text: text,
+	    //content: 'aaaaaa',
 	    username: 'bot'
 	}),
 	type: 'POST',
