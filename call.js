@@ -24,6 +24,7 @@ $(function () {
 	// 録音開始
 	console.log('on record');
 	recognition.start();
+	console.log('recording');
 	
     });
 });
