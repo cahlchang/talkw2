@@ -50,6 +50,6 @@ $(function () {
 
 $(function () {
     $('.slack-submit').on('click', function () {
-	call_test('test_b');
+	call_test('SLACK 通知テストです');
     });
 });
