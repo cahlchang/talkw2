@@ -11,9 +11,6 @@ function call_test(text) {
 	    content: 'aaaaaa',
 	    username: 'bot'
 	}),
-	content: 'aa',
-	dataType: 'json',
-	processData: false,
 	type: 'POST',
 	url: url,
 	contentType: 'application/json',
@@ -24,6 +21,24 @@ function call_test(text) {
             console.log('失敗');
         }
     });
+    // $.ajax({
+    // 	data: 'payload=' + JSON.stringify({
+    // 	    // text: text,
+    // 	    content: 'aaaaaa',
+    // 	    username: 'bot'
+    // 	}),
+    // 	dataType: 'json',
+    // 	processData: false,
+    // 	type: 'POST',
+    // 	url: url,
+    // 	contentType: 'application/json',
+    // 	success: function() {
+    //         console.log('成功');
+    //     },
+    //     error: function(){
+    //         console.log('失敗');
+    //     }
+    // });
 }
 
 function record() {
