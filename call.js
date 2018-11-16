@@ -11,6 +11,7 @@ function call_test(text) {
 	    content: msg,
 	    username: 'bot'
 	}),
+	content: 'aa',
 	dataType: 'json',
 	processData: false,
 	type: 'POST',
