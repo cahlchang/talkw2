@@ -3,7 +3,8 @@ var flag_push_enable = 0;
 
 function call_test(text) {
     console.log('test call');
-    var url = 'msg' + $('#webhook').val();
+    var msg = '[msg]' + text;
+    var url = $('#webhook').val();
     $.ajax({
 	data: 'payload=' + JSON.stringify({
 	    // text: text,
