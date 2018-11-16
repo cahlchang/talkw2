@@ -11,10 +11,7 @@ $(function () {
         $.ajax({
             url: url,
             type: 'post',
-            data: data,
-	    success: function (data) {
-                alert( 'Can I post to Slack? :' + token + data.ok );
-            }});
+            data: data});
 
     });
 });
