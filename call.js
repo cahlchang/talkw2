@@ -34,12 +34,10 @@ function record() {
 
     recognition.onsoundstart = function() {
 	$("#status").val("認識中");
-	flag_push_enable = false;
     };
     
     recognition.onnomatch = function() {
 	$("#status").val("もう一度試してください");
-	flag_push_enable = false;
     };
     
     recognition.onerror = function() {
@@ -50,31 +48,47 @@ function record() {
     
     recognition.onsoundend = function() {
 	$("#status").val("停止中");
-	flag_push_enable = true;
         record();
     };
- 
-    
-    recognition.addEventListener('result', function(event){
-	var results = event.results;
+
+
+    recognition.onresult = function(event) {
+        var results = event.results;
         for (var i = event.resultIndex; i < results.length; i++) {
             if (results[i].isFinal) {
-                // document.getElementById('result_text').innerHTML = results[i][0].transcript;
 		var text = results[i][0].transcript;
 		$("#result_text").val(text);
 		call_test(text);
                 record();
             }
             else {
-		var text = "[途中経過] " + results[i][0].transcript;
+		var text = results[i][0].transcript;
 		$("#result_text").val(text);
-
                 flag_speech = 1;
             }
-        }	
-    }, false);
+        }
+    }
+    
+    
+    // recognition.addEventListener('result', function(event){
+    // 	var results = event.results;
+    //     for (var i = event.resultIndex; i < results.length; i++) {
+    //         if (results[i].isFinal) {
+    //             // document.getElementById('result_text').innerHTML = results[i][0].transcript;
+    //         }
+    //         else {
+    // 		var text = "[途中経過] " + results[i][0].transcript;
+    // 		$("#result_text").val(text);
+
+    //             flag_speech = 1;
+    //         }
+    //     }	
+    // }, false);
 
     // 録音開始
+    
+    $("#result_text").val('START');
+
     flag_speech = 0;
     recognition.start();
     console.log('recording');
