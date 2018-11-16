@@ -9,6 +9,7 @@ function call_test(text) {
 	data: 'payload=' + JSON.stringify({
 	    // text: text,
 	    content: 'aaaaaa',
+	    avatar_url: 'https://cdn.discordapp.com/avatars/411256446638882837/9a12fc7810795ded801fdb0401db0be6.png',
 	    username: 'bot'
 	}),
 	type: 'POST',
