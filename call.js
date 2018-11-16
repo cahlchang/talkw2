@@ -1,17 +1,18 @@
 $(function () {
+
+    
+});
+
+
+$(function () {
     $('.slack-submit').on('click', function () {
 	var url = $('#webhook').val();
-
-        // var data = {
-        //     channel: '#bot_test',
-        //     username: 'bot',
-        //     text: 'Hello Slack!'
-        // };
 
 
 	$.ajax({
 	    data: 'payload=' + JSON.stringify({
-		"text": 'test'
+		text: 'test',
+		username: 'bot'
 	    }),
 	    dataType: 'json',
 	    processData: false,
