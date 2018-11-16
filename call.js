@@ -6,7 +6,8 @@ function call_test(text) {
     var url = $('#webhook').val();
     $.ajax({
 	data: 'payload=' + JSON.stringify({
-	    text: text,
+	    // text: text,
+	    content: text,
 	    username: 'bot'
 	}),
 	dataType: 'json',
@@ -70,10 +71,6 @@ function record() {
                 flag_speech = 1;
             }
         }	
-	// var text = event.results.item(0).item(0).transcript;
-	// $("#result_text").val(text);
-	// call_test(text);
-	
     }, false);
 
     // 録音開始
