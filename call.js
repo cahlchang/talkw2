@@ -7,12 +7,14 @@ function call_slack(text) {
     var url_image = $('#image').val();
     var format = new DateFormat("HH:mm");
     var str_time = format.format(new Date());
+    var channel = $('#channel').val();
     var msg = '[' + str_time + '] ' + text;
     $.ajax({
 	data: 'payload=' + JSON.stringify({
 	    text: msg,
 	    username: name,
-	    icon_url: url_image
+	    icon_url: url_image,
+	    channel: channel
 	}),
 	type: 'POST',
 	url: url,
