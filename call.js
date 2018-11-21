@@ -1,124 +1,91 @@
 var flag_speech = 0;
 var flag_push_enable = 0;
 
-function call_test(text) {
-    console.log('test call');
-    var msg = text;
+function call_slack(text) {
     var url = $('#webhook').val();
+    var name = $('#name').val();
+    var url_image = $('#image').val();
+    var format = new DateFormat("HH:mm");
+    var str_time = format.format(new Date());
+    var msg = '[' + str_time + '] ' + text;
     $.ajax({
 	data: 'payload=' + JSON.stringify({
-	    text: text,
-	    username: 'bot'
+	    text: msg,
+	    username: name,
+	    icon_url: url_image
 	}),
 	type: 'POST',
 	url: url,
     	dataType: 'json',
     	processData: false,
 	success: function() {
-            console.log('成功');
+            console.log('OK');
         },
         error: function(){
-            console.log('失敗');
+            console.log('NG');
         }
     });
-    // $.ajax({
-    // 	data: 'payload=' + JSON.stringify({
-    // 	    // text: text,
-    // 	    content: 'aaaaaa',
-    // 	    username: 'bot'
-    // 	}),
-    // 	dataType: 'json',
-    // 	processData: false,
-    // 	type: 'POST',
-    // 	url: url,
-    // 	contentType: 'application/json',
-    // 	success: function() {
-    //         console.log('成功');
-    //     },
-    //     error: function(){
-    //         console.log('失敗');
-    //     }
-    // });
 }
 
 function record() {
-    console.log('speech on');
+    
     window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
     var recognition = new webkitSpeechRecognition();
-    recognition.lang = 'ja';
+    var str_lang = $('input:radio[name="radio2"]:checked').val();
+    recognition.lang = str_lang;
     recognition.interimResults = true;
     recognition.continuous = true;
 
     recognition.onsoundstart = function() {
-	$("#status").val("認識中");
+    	$("#status").val("Recording");
     };
     
     recognition.onnomatch = function() {
-	$("#status").val("もう一度試してください");
+    	$("#status").val("Retry");
     };
     
     recognition.onerror = function() {
-	$("#status").val("エラー");
+    	$("#status").val("Error");
         if(flag_speech == 0)
             record();
     };
     
     recognition.onsoundend = function() {
-	$("#status").val("停止中");
+    	$("#status").val("Stopped");
         record();
     };
-
 
     recognition.onresult = function(event) {
         var results = event.results;
         for (var i = event.resultIndex; i < results.length; i++) {
             if (results[i].isFinal) {
-		var text = results[i][0].transcript;
-		$("#result_text").val(text);
-		call_test(text);
+    		var text = results[i][0].transcript;
+    		$("#result_text").val(text);
+    		call_slack(text);
                 record();
             }
             else {
-		var text = results[i][0].transcript;
-		$("#result_text").val(text);
+    		var text = results[i][0].transcript;
+    		$("#result_text").val(text);
                 flag_speech = 1;
             }
         }
     }
     
-    
-    // recognition.addEventListener('result', function(event){
-    // 	var results = event.results;
-    //     for (var i = event.resultIndex; i < results.length; i++) {
-    //         if (results[i].isFinal) {
-    //             // document.getElementById('result_text').innerHTML = results[i][0].transcript;
-    //         }
-    //         else {
-    // 		var text = "[途中経過] " + results[i][0].transcript;
-    // 		$("#result_text").val(text);
-
-    //             flag_speech = 1;
-    //         }
-    //     }	
-    // }, false);
-
-    // 録音開始
-    
     $("#result_text").val('START');
 
     flag_speech = 0;
     recognition.start();
-    console.log('recording');
 }
 
-$(function () {
-    $('.record').on('click', function () {
-	record();
-    });
-});
 
 $(function () {
-    $('.slack-submit').on('click', function () {
-	call_test('SLACK 通知テストです');
+
+    $('#record').on('click', function () {
+	record();
+    });
+
+    $('#slack-submit').on('click', function () {
+	call_slack('Slack Notify');
     });
 });
