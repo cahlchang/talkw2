@@ -1,5 +1,6 @@
 var flag_speech = 0;
 var flag_push_enable = 0;
+const COOKIE_KEYS = ['webhook', 'name', 'image', 'channel']
 
 function call_slack(text) {
   var url = $('#webhook').val();
@@ -30,7 +31,8 @@ function call_slack(text) {
 }
 
 function record() {
-    
+  save_input_to_cookie()
+
   window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
   var recognition = new webkitSpeechRecognition();
   var str_lang = $('input:radio[name="radio2"]:checked').val();
@@ -79,8 +81,44 @@ function record() {
   recognition.start();
 }
 
+function get_cookies() {
+  var result = [];
+  var cookies = document.cookie.split(";");
+  for(var cookie of cookies) {
+    var kv = cookie.trim().split("=");
+    result[kv[0]] = decodeURIComponent(kv[1])
+  }
+  return result;
+}
+
+function save_cookies(data) {
+  for(var k in data) {
+    document.cookie = k + "=" + encodeURIComponent(data[k]) + ";";
+  }
+}
+
+function restore_input_from_cookie()
+{
+  var cookies = get_cookies();
+  for(var key of COOKIE_KEYS) {
+    $("#" + key).val(cookies[key]);
+  }
+}
+
+function save_input_to_cookie()
+{
+  var data = {};
+  for(var key of COOKIE_KEYS) {
+    data[key] = $("#" + key).val();
+  }
+  save_cookies(data);
+}
 
 $(function () {
+
+  $(document).ready(function() {
+    restore_input_from_cookie();
+  });
 
   $('#record').on('click', function () {
     record();
