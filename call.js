@@ -1,5 +1,6 @@
 var flag_speech = 0;
-var flag_push_enable = 0;
+var flag_now_recording = false;
+var recognition;
 
 function call_slack(text) {
     var url = $('#webhook').val();
@@ -32,7 +33,7 @@ function call_slack(text) {
 function record() {
     
     window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
-    var recognition = new webkitSpeechRecognition();
+    recognition = new webkitSpeechRecognition();
     var str_lang = $('input:radio[name="radio2"]:checked').val();
     recognition.lang = str_lang;
     recognition.interimResults = true;
@@ -80,11 +81,24 @@ function record() {
     recognition.start();
 }
 
+function toggle_recording() {
+  if (flag_now_recording) {
+    if (recognition) { recognition.stop(); }
+    $('#record').val('RECORD START');
+    $('#record').removeClass('uk-button-danger').addClass('uk-button-primary');
+    flag_now_recording = false;
+  }
+  else {
+    $('#record').val('RECORD STOP');
+    $('#record').removeClass('uk-button-primary').addClass('uk-button-danger');
+    flag_now_recording = true;
+  }
+}
 
 $(function () {
 
     $('#record').on('click', function () {
-	record();
+	toggle_recording();
     });
 
     $('#slack-submit').on('click', function () {
