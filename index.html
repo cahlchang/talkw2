@@ -12,70 +12,70 @@
     <script src="call.js"></script>
   </head>
   <body>
-    rev 35
+    rev 36. store parameter.
     <form class="uk-form-horizontal uk-margin-large uk-section-xsmall" >
       <fieldset data-uk-margin>
-	<legend>Talk With</legend>
-
-	<label class="uk-form-label" for="form-horizontal-text">Use language</label>
+        <legend>Talk With</legend>
+    
+        <label class="uk-form-label" for="form-horizontal-text">Use language</label>
         <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-radio" type="radio" value="en" name="radio2" checked> EN</label>
-            <label><input class="uk-radio" type="radio" value="ja" name="radio2"> JA</label>
-            <label><input class="uk-radio" type="radio" value="fr" name="radio2"> FR</label>
-            <label><input class="uk-radio" type="radio" value="de" name="radio2"> DE</label>
-            <label><input class="uk-radio" type="radio" value="it" name="radio2"> IT</label>
-            <label><input class="uk-radio" type="radio" value="la" name="radio2"> LA</label>
-            <label><input class="uk-radio" type="radio" value="ko" name="radio2"> KO</label>
-            <label><input class="uk-radio" type="radio" value="zh" name="radio2"> ZH</label>
+          <label><input class="uk-radio" type="radio" value="en" name="radio2" checked> EN</label>
+          <label><input class="uk-radio" type="radio" value="ja" name="radio2"> JA</label>
+          <label><input class="uk-radio" type="radio" value="fr" name="radio2"> FR</label>
+          <label><input class="uk-radio" type="radio" value="de" name="radio2"> DE</label>
+          <label><input class="uk-radio" type="radio" value="it" name="radio2"> IT</label>
+          <label><input class="uk-radio" type="radio" value="la" name="radio2"> LA</label>
+          <label><input class="uk-radio" type="radio" value="ko" name="radio2"> KO</label>
+          <label><input class="uk-radio" type="radio" value="zh" name="radio2"> ZH</label>
         </div>
-	
-	<div class="uk-margin">
+        
+        <div class="uk-margin">
           <label class="uk-form-label" for="form-horizontal-text">Webhook Url</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="webhook" type="text" placeholder="https://hooks.slack.com/services/xxxxx...">
+            <input class="uk-input" name="webhook" id="webhook" type="text" placeholder="https://hooks.slack.com/services/xxxxx...">
           </div>
-	</div>
-
-	<div class="uk-margin">
+        </div>
+    
+        <div class="uk-margin">
           <label class="uk-form-label" for="form-horizontal-text">Name</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="name" type="text" placeholder="your bot name">
+            <input class="uk-input" name="name" id="name" type="text" placeholder="your bot name">
           </div>
-	</div>
-
-	<div class="uk-margin">
+        </div>
+    
+        <div class="uk-margin">
           <label class="uk-form-label" for="form-horizontal-text">Channel</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="channel" type="text" placeholder="#random">
+            <input class="uk-input" name="channel" id="channel" type="text" placeholder="#random">
           </div>
-	</div>
-
-	<div class="uk-margin">
+        </div>
+    
+        <div class="uk-margin">
           <label class="uk-form-label" for="form-horizontal-text">Image</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="image" type="text" placeholder="https://example.com/your_icon_image.png">
+            <input class="uk-input" id="image" id="image" type="text" placeholder="https://example.com/your_icon_image.png">
           </div>
-	</div>
-	
-	<hr class="uk-grid-divider" />
-
-	<div class="uk-margin">
+        </div>
+        
+        <hr class="uk-grid-divider" />
+    
+        <div class="uk-margin">
           <label class="uk-form-label" for="form-horizontal-text">State</label>
           <div class="uk-form-controls">
             <input class="uk-disabled uk-input" id="status" type="text" placeholder="STATE">
           </div>
-	</div>
-
-	<div class="uk-margin">
-	  <label class="uk-form-label" for="form-horizontal-text">Result</label>
+        </div>
+    
+        <div class="uk-margin">
+          <label class="uk-form-label" for="form-horizontal-text">Result</label>
           <div class="uk-form-controls">
-	    <textarea class="uk-disabled uk-textarea" id="result_text" placeholder="RESULT"></textarea>
-	  </div>
-	</div>
-
-	<br />
-	<input type="button" class="uk-button uk-button-primary" id="record" value="RECORD START" /><br />
-	<input type="button" class="uk-button uk-button-secondary" id="slack-submit" value="SLACK NOTIFY TEST" /><br />
+            <textarea class="uk-disabled uk-textarea" id="result_text" placeholder="RESULT"></textarea>
+          </div>
+        </div>
+    
+        <br />
+        <input type="button" class="uk-button uk-button-primary" id="record" value="RECORD START" /><br />
+        <input type="button" class="uk-button uk-button-secondary" id="slack-submit" value="SLACK NOTIFY TEST" /><br />
       </fieldset>
     </form>
   </body>
