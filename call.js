@@ -38,13 +38,6 @@ function record() {
     recognition.continuous = true;
     save_input_to_cookie()
 
-    window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
-    var recognition = new webkitSpeechRecognition();
-    var str_lang = $('input:radio[name="radio2"]:checked').val();
-    recognition.lang = str_lang;
-    recognition.interimResults = true;
-    recognition.continuous = true;
-
     recognition.onsoundstart = function() {
 	$("#status").val("Recording");
     };
@@ -63,6 +56,7 @@ function record() {
     
     recognition.onsoundend = function() {
 	$("#status").val("Stopped");
+	recognition.stop();
 	record();
     };
 
@@ -73,6 +67,7 @@ function record() {
 		var text = results[i][0].transcript;
 		$("#result_text").val(text);
 		call_slack(text);
+		recognition.stop();
 		record();
 	    }
 	    else {
