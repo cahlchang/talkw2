@@ -1,4 +1,6 @@
 var flag_speech = 0;
+var flag_now_recording = false;
+var recognition;
 var flag_push_enable = 0;
 const COOKIE_KEYS = ['webhook', 'name', 'image', 'channel']
 
@@ -31,6 +33,12 @@ function call_slack(text) {
 }
 
 function record() {
+  window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+  recognition = new webkitSpeechRecognition();
+  var str_lang = $('input:radio[name="radio2"]:checked').val();
+  recognition.lang = str_lang;
+  recognition.interimResults = true;
+  recognition.continuous = true;
   save_input_to_cookie()
 
   window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
@@ -91,6 +99,19 @@ function get_cookies() {
   return result;
 }
 
+function toggle_recording() {
+  if (flag_now_recording) {
+    if (recognition) { recognition.stop(); }
+    $('#record').val('RECORD START');
+    $('#record').removeClass('uk-button-danger').addClass('uk-button-primary');
+    flag_now_recording = false;
+  }
+  else {
+    $('#record').val('RECORD STOP');
+    $('#record').removeClass('uk-button-primary').addClass('uk-button-danger');
+    flag_now_recording = true;
+  }
+
 function save_cookies(data) {
   for(var k in data) {
     document.cookie = k + "=" + encodeURIComponent(data[k]) + ";";
@@ -115,7 +136,10 @@ function save_input_to_cookie()
 }
 
 $(function () {
-
+    $('#record').on('click', function () {
+    	toggle_recording();
+    });
+  
   $(document).ready(function() {
     restore_input_from_cookie();
   });
