@@ -104,6 +104,7 @@ function toggle_recording() {
 	$('#record').val('RECORD STOP');
 	$('#record').removeClass('uk-button-primary').addClass('uk-button-danger');
 	flag_now_recording = true;
+    record();
     }
 }
 
@@ -137,10 +138,6 @@ $(function () {
     
     $(document).ready(function() {
 	restore_input_from_cookie();
-    });
-
-    $('#record').on('click', function () {
-	record();
     });
 
     $('#slack-submit').on('click', function () {
