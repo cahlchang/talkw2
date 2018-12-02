@@ -13,19 +13,19 @@ function call_slack(text) {
     var channel = $('#channel').val();
     var msg = '[' + str_time + '] ' + text;
     $.ajax({
-	data: 'payload=' + JSON.stringify({
-	    text: msg,
-	    username: name,
-	    icon_url: url_image,
-	    channel: channel
-	}),
-	type: 'POST',
-	url: url,
-	dataType: 'json',
-	processData: false,
-	success: function() {
-	    console.log('OK');
-	}
+        data: 'payload=' + JSON.stringify({
+            text: msg,
+            username: name,
+            icon_url: url_image,
+            channel: channel
+        }),
+        type: 'POST',
+        url: url,
+        dataType: 'json',
+        processData: false,
+        success: function() {
+            console.log('OK');
+        }
     });
 }
 
@@ -39,43 +39,40 @@ function record() {
     save_input_to_cookie()
 
     recognition.onsoundstart = function() {
-	$("#status").val("Recording");
+        $("#status").val("Recording");
     };
     
     recognition.onnomatch = function() {
-	$("#status").val("Retry");
+        $("#status").val("Retry");
     };
     
     recognition.onerror = function(event) {
-	//alert(event.error);
-	
-	$("#status").val(event.error);
-	if (flag_speech == 0)
-	    record();
+        $("#status").val(event.error);
+        if (flag_speech == 0) { record(); }
     };
     
     recognition.onsoundend = function() {
-	$("#status").val("Stopped");
-	recognition.stop();
-	record();
+        $("#status").val("Stopped");
+        recognition.stop();
+        record();
     };
 
     recognition.onresult = function(event) {
-	var results = event.results;
-	for (var i = event.resultIndex; i < results.length; i++) {
-	    if (results[i].isFinal) {
-		var text = results[i][0].transcript;
-		$("#result_text").val(text);
-		call_slack(text);
-		recognition.stop();
-		record();
-	    }
-	    else {
-		var text = results[i][0].transcript;
-		$("#result_text").val(text);
-		flag_speech = 1;
-	    }
-	}
+        var results = event.results;
+        for (var i = event.resultIndex; i < results.length; i++) {
+            if (results[i].isFinal) {
+                var text = results[i][0].transcript;
+                $("#result_text").val(text);
+                call_slack(text);
+                recognition.stop();
+                record();
+            }
+            else {
+                var text = results[i][0].transcript;
+                $("#result_text").val(text);
+                flag_speech = 1;
+            }
+        }
     }
     
     $("#result_text").val('START');
@@ -87,29 +84,30 @@ function get_cookies() {
     var result = [];
     var cookies = document.cookie.split(";");
     for(var cookie of cookies) {
-	var kv = cookie.trim().split("=");
-	result[kv[0]] = decodeURIComponent(kv[1])
+        var kv = cookie.trim().split("=");
+        result[kv[0]] = decodeURIComponent(kv[1])
     }
     return result;
 }
 
 function toggle_recording() {
     if (flag_now_recording) {
-	if (recognition) { recognition.stop(); }
-	$('#record').val('RECORD START');
-	$('#record').removeClass('uk-button-danger').addClass('uk-button-primary');
-	flag_now_recording = false;
+        if (recognition) { recognition.stop(); }
+        $('#record').val('RECORD START');
+        $('#record').removeClass('uk-button-danger').addClass('uk-button-primary');
+        flag_now_recording = false;
     }
     else {
-	$('#record').val('RECORD STOP');
-	$('#record').removeClass('uk-button-primary').addClass('uk-button-danger');
-	flag_now_recording = true;
+        $('#record').val('RECORD STOP');
+        $('#record').removeClass('uk-button-primary').addClass('uk-button-danger');
+        flag_now_recording = true;
+        record();
     }
 }
 
 function save_cookies(data) {
     for(var k in data) {
-	document.cookie = k + "=" + encodeURIComponent(data[k]) + ";";
+        document.cookie = k + "=" + encodeURIComponent(data[k]) + ";";
     }
 }
 
@@ -117,7 +115,7 @@ function restore_input_from_cookie()
 {
     var cookies = get_cookies();
     for(var key of COOKIE_KEYS) {
-	$("#" + key).val(cookies[key]);
+        $("#" + key).val(cookies[key]);
     }
 }
 
@@ -125,25 +123,21 @@ function save_input_to_cookie()
 {
     var data = {};
     for(var key of COOKIE_KEYS) {
-	data[key] = $("#" + key).val();
+        data[key] = $("#" + key).val();
     }
     save_cookies(data);
 }
 
 $(function () {
     $('#record').on('click', function () {
-    	toggle_recording();
+        toggle_recording();
     });
     
     $(document).ready(function() {
-	restore_input_from_cookie();
-    });
-
-    $('#record').on('click', function () {
-	record();
+        restore_input_from_cookie();
     });
 
     $('#slack-submit').on('click', function () {
-	call_slack('Slack Notify');
+        call_slack('Slack Notify');
     });
 });
